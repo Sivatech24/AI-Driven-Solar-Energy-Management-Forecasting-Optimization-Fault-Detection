@@ -10,7 +10,7 @@ name: Solar_Power_Prediction_Using_Tensorflow_Dense_Model
 
 on:
   release:
-    types: [published]
+    types: v1.0.0
 
 permissions:
   contents: read
