@@ -1,35 +1,52 @@
-# **AI-Driven Sustainable Energy Management: Forecasting, Optimization, and Commercial Viability of Solar Energy Systems**  
+# AI-Driven Solar Energy Management: Forecasting, Optimization & Fault Detection
 
-## **Overview**  
-This project focuses on leveraging AI-driven techniques to enhance the efficiency, reliability, and commercial viability of solar power systems. By utilizing machine learning models, we aim to predict solar power generation, detect inverter failures, and optimize energy management for sustainable operations.  
+## Overview
+This repository contains the complete implementation of an **AI-Driven Solar Energy Management System**, including:
+- **Fine-tuned models** for solar power prediction and inverter fault detection.
+- **A Streamlit web application** for visualizing solar energy forecasts and analytics.
+- **A Hugging Face Space** for interactive AI-powered analysis.
+- **A PyPI package** for easy integration and use in Python projects.
+- **A dedicated website** for project details and demonstrations.
 
-## **Key Features**  
-- **Solar Power Prediction:** A Long Short-Term Memory (LSTM) model forecasts solar power production based on historical data.  
-- **Inverter Failure Detection:** A Random Forest Classifier detects inverter failures from `solar_power_data.csv`, enabling proactive maintenance.  
-- **Energy Optimization:** AI-driven insights to enhance power efficiency and reduce energy losses.  
-- **Data Analysis & Visualization:** Real-time monitoring and trend analysis using Pandas, Seaborn, and Streamlit.  
+## Features
+✅ **Solar Power Prediction:** Forecast energy generation using machine learning models.
+✅ **Inverter Fault Detection:** Identify potential failures and optimize maintenance schedules.
+✅ **Real-Time Data Analysis:** Interactive dashboards using Streamlit.
+✅ **Deployment Ready:** Available as a Python package and hosted apps.
+✅ **Optimized AI Models:** Fine-tuned deep learning models for improved accuracy.
 
-## **Technologies Used**  
-- **Machine Learning:** LSTM, Random Forest Classifier  
-- **Programming & Libraries:** Python, Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, TensorFlow/Keras  
-- **Data Processing:** Time series analysis, resampling, and feature engineering  
-- **Deployment & UI:** Jupyter Notebook for model development, Streamlit for visualization  
+## Installation
+To use the AI models in your own projects, install the packages from PyPI:
 
-## **Project Goals**  
-- Improve solar power forecasting accuracy for better energy planning.  
-- Implement an AI-based fault detection system for solar inverters.  
-- Optimize energy utilization and minimize inefficiencies in solar power plants.  
-- Develop a user-friendly interface for monitoring and analyzing solar energy data.  
+```sh
+pip install Solar-Power-Prediction-Using-Tensorflow-Dense-Model
+pip install Solar-Power-Prediction-Tensorflow-LSTM-Model
+```
 
-## **How to Use**  
-1. **Data Preparation:** Ensure `solar_power_data.csv` is available in the dataset folder.  
-2. **Training Models:** Run the Jupyter Notebook to train the LSTM and Random Forest models.  
-3. **Prediction & Analysis:** Use the Streamlit app to visualize forecasts and detect inverter anomalies.  
-4. **Deployment:** Deploy the trained models for real-time monitoring and analysis.  
+## Usage
+To train a solar power prediction model using our package, simply import and run:
 
-## **Future Enhancements**  
-- Integrate additional ML models for more accurate energy forecasting.  
-- Extend the dataset with real-time sensor data for better predictions.  
-- Develop a web-based dashboard for remote monitoring of solar plants.  
+```python
+from solar_power import train_model
 
----
+model, scaler = train_model("data.csv")
+```
+
+## Useful Links
+🔗 **GitHub Repository:** [AI-Driven Solar Energy Management](https://github.com/Sivatech24/AI-Driven-Solar-Energy-Management-Forecasting-Optimization-Fault-Detection.git)
+
+🌍 **Streamlit App:** [Live Solar Power Analysis](https://solarpoweranalysis.streamlit.app/about)
+
+🤗 **Hugging Face Space:** [Solar Analysis on Hugging Face](https://huggingface.co/spaces/CodingMaster24/SolarAnalysis)
+
+📦 **PyPI Packages:**
+- [Solar-Power-Prediction-Using-Tensorflow-Dense-Model](https://pypi.org/project/Solar-Power-Prediction-Using-Tensorflow-Dense-Model/)
+- [Solar-Power-Prediction-Tensorflow-LSTM-Model](https://pypi.org/project/Solar-Power-Prediction-Tensorflow-LSTM-Model/)
+
+📦 **PyPI:** [Projects](https://pypi.org/user/CodingMaster24/)
+
+## Contributing
+Feel free to contribute by submitting issues, feature requests, or pull requests. Let's make solar energy forecasting smarter! ⚡
+
+## License
+This project is licensed under the MIT License.
