@@ -1,0 +1,9 @@
+README.md
+setup.py
+Solar_Power_Prediction_Using_Tensorflow_Dense_Model.egg-info/PKG-INFO
+Solar_Power_Prediction_Using_Tensorflow_Dense_Model.egg-info/SOURCES.txt
+Solar_Power_Prediction_Using_Tensorflow_Dense_Model.egg-info/dependency_links.txt
+Solar_Power_Prediction_Using_Tensorflow_Dense_Model.egg-info/requires.txt
+Solar_Power_Prediction_Using_Tensorflow_Dense_Model.egg-info/top_level.txt
+solar_power/__init__.py
+solar_power/model.py
