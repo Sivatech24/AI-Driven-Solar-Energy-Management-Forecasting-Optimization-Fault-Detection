@@ -1,0 +1,18 @@
+digraph "Solar Panel Analysis Sequence Diagram" {
+	U [label=User]
+	DC [label="Solar Data Collection"]
+	DP [label="Data Preprocessing"]
+	ML1 [label="LSTM Model (Power Prediction)"]
+	ML2 [label="Random Forest (Failure Detection)"]
+	PO [label="Prediction & Optimization"]
+	DB [label="Streamlit Dashboard"]
+	U -> DC [label="Request Solar Data"]
+	DC -> DP [label="Send Raw Data"]
+	DP -> ML1 [label="Preprocessed Data for Power Prediction"]
+	DP -> ML2 [label="Preprocessed Data for Failure Detection"]
+	ML1 -> PO [label="Solar Power Forecasts"]
+	ML2 -> PO [label="Failure Prediction Results"]
+	PO -> DB [label="Optimized Energy & Alerts"]
+	DB -> U [label="Display Forecast & System Status"]
+	size=10
+}
