@@ -1,0 +1,3 @@
+https://www.kaggle.com/datasets/codingmaster24/nrel-solar-power-data-partitioned
+
+https://www.kaggle.com/datasets/codingmaster24/nrel-solar-power-data-partitioned-data

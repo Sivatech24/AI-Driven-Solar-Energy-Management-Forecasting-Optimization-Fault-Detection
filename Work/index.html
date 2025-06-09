@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Solar Panel + Arduino + ESP32 Setup Guide</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    code, pre {
+      background: #eaeaea;
+      padding: 10px;
+      display: block;
+      overflow-x: auto;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #eee;
+    }
+    .note {
+      background: #fff3cd;
+      border: 1px solid #ffeeba;
+      padding: 10px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔋🌞 Solar Power Setup Guide with Arduino + ESP32</h1>
+  <p><strong>Goal:</strong> Power your Arduino and ESP32 from a 12V solar system, measure battery voltage, temperature, and humidity using DHT22, and send data via ESP32.</p>
+
+  <h2>🧰 Components</h2>
+  <table>
+    <tr><th>Component</th><th>Quantity</th></tr>
+    <tr><td>12V 5W Solar Panel</td><td>1</td></tr>
+    <tr><td>PWM Charge Controller</td><td>1</td></tr>
+    <tr><td>12V Rechargeable Battery</td><td>1</td></tr>
+    <tr><td>LM2596 Buck Converter</td><td>1</td></tr>
+    <tr><td>Arduino Uno</td><td>1</td></tr>
+    <tr><td>ESP32 Development Board</td><td>1</td></tr>
+    <tr><td>DHT22 Sensor</td><td>1</td></tr>
+    <tr><td>Resistors: 20kΩ, 10kΩ, 10kΩ</td><td>1 each</td></tr>
+    <tr><td>Breadboard + Jumper Wires</td><td>1 set</td></tr>
+    <tr><td>Multimeter</td><td>1</td></tr>
+  </table>
+
+  <div class="note"><strong>⚠️ SAFETY FIRST:</strong> Never short the battery. Connect battery to the PWM first. Check polarities and voltages carefully.</div>
+
+  <h2>🪛 Step 1: Solar Panel, Battery & PWM Charge Controller</h2>
+  <h3>Connections:</h3>
+  <table>
+    <tr><th>From</th><th>To</th></tr>
+    <tr><td>Solar Panel +</td><td>PWM Solar +</td></tr>
+    <tr><td>Solar Panel −</td><td>PWM Solar −</td></tr>
+    <tr><td>Battery +</td><td>PWM Battery +</td></tr>
+    <tr><td>Battery −</td><td>PWM Battery −</td></tr>
+  </table>
+  <h3>Multimeter Check:</h3>
+  <ul>
+    <li>Battery connected → PWM lights on.</li>
+    <li>In sunlight → PWM shows charging.</li>
+    <li>PWM Load output should be ~12V.</li>
+  </ul>
+
+  <h2>🔋 Step 2: Connect LM2596 Buck Converter</h2>
+  <h3>Connections:</h3>
+  <table>
+    <tr><th>LM2596 Pin</th><th>Connects To</th></tr>
+    <tr><td>IN+</td><td>PWM Load +</td></tr>
+    <tr><td>IN−</td><td>PWM Load −</td></tr>
+  </table>
+  <p>Adjust output with a multimeter to exactly 5.0V using the onboard potentiometer.</p>
+
+  <h2>⚡ Step 3: Power Arduino and ESP32</h2>
+  <table>
+    <tr><th>LM2596 Output</th><th>Connects To</th></tr>
+    <tr><td>OUT+ (5V)</td><td>Arduino 5V, ESP32 5V</td></tr>
+    <tr><td>OUT− (GND)</td><td>Arduino GND, ESP32 GND</td></tr>
+  </table>
+
+  <h2>🌡️ Step 4: Connect DHT22 Sensor</h2>
+  <table>
+    <tr><th>DHT22 Pin</th><th>Connects To</th></tr>
+    <tr><td>1 (VCC)</td><td>Arduino 5V</td></tr>
+    <tr><td>2 (Data)</td><td>Arduino D2</td></tr>
+    <tr><td>4 (GND)</td><td>Arduino GND</td></tr>
+  </table>
+  <p>Connect 10kΩ pull-up resistor between Pin 1 and Pin 2.</p>
+
+  <h2>🔋 Step 5: Battery Voltage Divider</h2>
+  <ul>
+    <li>20kΩ: Battery + to Node</li>
+    <li>10kΩ: Node to GND</li>
+    <li>Node to Arduino A0</li>
+  </ul>
+  <p>Node voltage should be ≤ 5V.</p>
+
+  <h2>🔁 Step 6: Arduino to ESP32 Serial (UART)</h2>
+  <ul>
+    <li>Arduino TX → 1kΩ → Node → ESP32 RX (GPIO16)</li>
+    <li>Node → 2kΩ → GND</li>
+    <li>Connect all grounds together</li>
+  </ul>
+
+  <h2>📜 Step 7: Arduino Code</h2>
+  <pre><code>#include &lt;DHT.h&gt;
+#define DHTPIN 2
+#define DHTTYPE DHT22
+#define VOLTAGE_PIN A0
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+}
+
+void loop() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  int rawADC = analogRead(VOLTAGE_PIN);
+  float v = rawADC * 5.0 / 1023.0;
+  float battVoltage = v * 3.0;
+
+  Serial.print(t); Serial.print(",");
+  Serial.print(h); Serial.print(",");
+  Serial.println(battVoltage);
+  delay(2000);
+}
+</code></pre>
+
+  <h2>📜 Step 8: ESP32 Code</h2>
+  <pre><code>#define RXD2 16
+#define TXD2 17
+
+void setup() {
+  Serial.begin(115200);
+  Serial2.begin(9600, SERIAL_8N1, RXD2, TXD2);
+}
+
+void loop() {
+  if (Serial2.available()) {
+    String data = Serial2.readStringUntil('\n');
+    Serial.println("From Arduino: " + data);
+  }
+}
+</code></pre>
+
+  <h2>🧪 Final Testing</h2>
+  <ul>
+    <li>Check LM2596 Output = 5.0V</li>
+    <li>Check voltage divider node &lt;= 5V</li>
+    <li>Open Serial Monitor on ESP32 → See Arduino data</li>
+  </ul>
+
+  <h2>💡 Optional Extensions</h2>
+  <ul>
+    <li>Send data via Wi-Fi to a dashboard</li>
+    <li>Display data on OLED/LCD</li>
+    <li>Log to SD card or cloud</li>
+  </ul>
+
+</body>
+</html>
